@@ -1,28 +1,38 @@
-export namespace SberZarya {
-    export interface RegularAchievements {
-        id:number,
-        title:string,
-        description:string,
-        img:string
-    }
-    
-    export interface AchievementState {
-        allState:boolean,
-        userState:boolean,
-        userAchievements:Array<number>,
-        allAchievements: Array<RegularAchievements>
-    }
+export type RouteBlock = {
+    img:string,
+    title:string,
+    icon:string,
+    link:string
+}
 
-    export interface AchievementSelectorState {
-        achievements:AchievementState
-    }
+export type RegularAchievements = {
+    id:number,
+    title:string,
+    description:string,
+    img:string
+}
     
-    export interface BrushingState {
-        ongoingBrushing:boolean,
-        time:number
-    }
+export type AchievementState = {
+    allState:boolean,
+    userState:boolean,
+    userAchievements:Array<number>,
+    allAchievements: Array<RegularAchievements>
+}
 
-    export interface BrushingSelectorState {
-        brushing:BrushingState
-    }
+export type AchievementSelectorState = {
+    achievements:AchievementState
+}
+    
+export type BrushingState = {
+    ongoingBrushing:boolean,
+    time:number
+}
+
+export type BrushingSelectorState = {
+    brushing:BrushingState
+}
+
+export type HistoryPart = {
+    title:string,
+    subTitle:string
 }

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {SberZarya} from "../../../Core/SberZarya";
+import { BrushingSelectorState } from "../../../Core/SberZarya";
 import {brushStart, brushEnd} from "./BrushingSlice";
 
 import MainStage from "./Components/MainStage";
@@ -12,21 +12,21 @@ const Main = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  user-select: none;
 `;
 
-
-const Brushing = ():JSX.Element => {
-    const brushingState:boolean = useSelector(({brushing}:SberZarya.BrushingSelectorState):boolean => brushing.ongoingBrushing);
+const Brushing = (): JSX.Element => {
+    const brushingState:boolean = useSelector(({brushing}: BrushingSelectorState): boolean => brushing.ongoingBrushing);
     const dispatch = useDispatch();
 
     const [stage, setStage] = useState<number>(brushingState ? 2 : 1);
 
-    const onProceed = ():void => {
+    const onProceed = (): void => {
         dispatch(brushStart());
         setStage(2);
     }
 
-    const onEnd = ():void => {
+    const onEnd = (): void => {
         dispatch(brushEnd())
         setStage(1);
     }

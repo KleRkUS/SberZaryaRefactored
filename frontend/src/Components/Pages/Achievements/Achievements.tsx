@@ -1,12 +1,11 @@
 import React from "react";
 import {Container, Row, Carousel, CarouselGridWrapper, CarouselCol} from '@sberdevices/ui';
 import styled from "styled-components"
-
-import GeneralBlock from "./Components/GeneralBlock";
-import AchievementCard from "./Components/AchievementCard";
-import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {SberZarya} from "../../../Core/SberZarya";
+import GeneralBlock from "./Components/GeneralBlock/GeneralBlock";
+import AchievementCard from "./Components/AchievementsCard/AchievementCard";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { AchievementSelectorState, RegularAchievements } from "../../../Core/SberZarya";
 
 const AchievementsContainer = styled.div`
   vertical-align:middle;
@@ -25,19 +24,19 @@ const Grid = styled.section`
   width: auto;
 `;
 
-const Achievements = ():JSX.Element => {
-    const allAchievements:Array<SberZarya.RegularAchievements> = useSelector(({achievements}:SberZarya.AchievementSelectorState) => achievements.allAchievements);
-    const userAchievements:Array<number> = useSelector(({achievements}:SberZarya.AchievementSelectorState) => achievements.userAchievements);
+const Achievements = (): JSX.Element => {
+    const allAchievements: Array<RegularAchievements> = useSelector(({achievements}: AchievementSelectorState) => achievements.allAchievements);
+    const userAchievements: Array<number> = useSelector(({achievements}: AchievementSelectorState) => achievements.userAchievements);
 
     return(
         <AchievementsContainer>
             <CarouselGridWrapper >
-                {/*@ts-ignore*/}
                 <Carousel
                     scrollSnapType="mandatory"
                     as={Row}
                     axis="x"
                     paddingStart="56px"
+                    index={0}
                 >
                     <CarouselCol>
                         <GeneralBlock
@@ -49,7 +48,8 @@ const Achievements = ():JSX.Element => {
                     <CarouselCol>
                         <Container>
                             <Grid>
-                                {allAchievements.map((elem:SberZarya.RegularAchievements, i:number) =>
+
+                                {allAchievements.map((elem: RegularAchievements, i: number) =>
                                     <Link to={`/achievement=${elem.id}`}>
                                         <AchievementCard
                                             key={i}
@@ -60,6 +60,7 @@ const Achievements = ():JSX.Element => {
                                         />
                                     </Link>
                                 )}
+
                             </Grid>
                         </Container>
                     </CarouselCol>

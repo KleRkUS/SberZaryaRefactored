@@ -27,20 +27,28 @@ const Button = styled.button`
     border: none;
     outline: none;
     font-size: 16px;
-    background: rgba(255, 255, 255, 0.12);
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
     border-radius: 12px;
     margin-top: 79px;
+    cursor: pointer;
+    will-change: background-color;
+    transition: background-color .2s ease-in-out;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
 `;
 
-const Start = ({onProceed}:StartProps):JSX.Element => {
+const Start = ({onProceed}: StartProps): JSX.Element => {
     return(
         <Container>
             <Image src="/assets/icons/brushing/Start.svg" alt="Toothbrush"/>
             <Title>Нанесите небольшой слой пасты на щетку</Title>
 
-            <Button
-                onClick={() => onProceed()}
-            >Я готов</Button>
+            <Button onClick={() => onProceed()}>
+              Я готов
+            </Button>
         </Container>
     )
 }

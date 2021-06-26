@@ -1,18 +1,18 @@
 import {CaseReducer, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {SberZarya} from "../../../Core/SberZarya";
+import { AchievementState, RegularAchievements } from "../../../Core/SberZarya";
 
-const initialState:SberZarya.AchievementState = {
+const initialState: AchievementState = {
     allState: false,
     userState: false,
     userAchievements: [],
     allAchievements: []
 }
 
-const setAll:CaseReducer<SberZarya.AchievementState, PayloadAction<Array<SberZarya.RegularAchievements>>> = (state, action:PayloadAction<Array<SberZarya.RegularAchievements>>):void => {
+const setAll:CaseReducer<AchievementState, PayloadAction<Array<RegularAchievements>>> = (state, action:PayloadAction<Array<RegularAchievements>>): void => {
     state.allAchievements = action.payload;
     state.allState = !0;
 };
-const setUser:CaseReducer<SberZarya.AchievementState, PayloadAction<Array<number>>> = (state, action:PayloadAction<Array<number>>):void => {
+const setUser:CaseReducer<AchievementState, PayloadAction<Array<number>>> = (state, action:PayloadAction<Array<number>>): void => {
     state.userAchievements = action.payload;
     state.userState = !0;
 }
@@ -25,12 +25,6 @@ const AchievementsSlice = createSlice({
         setUserAchievements: setUser
     }
 });
-
-export const getUserAchievements = (state:SberZarya.AchievementState):Array<number> => state.userAchievements;
-export const getAllAchievements = (state:SberZarya.AchievementState):Array<SberZarya.RegularAchievements> => state.allAchievements;
-
-export const getUserAchievementsState = (state:SberZarya.AchievementState):boolean => state.userState;
-export const getAllAchievementsState = (state:SberZarya.AchievementState):boolean => state.allState;
 
 export const {setAllAchievements, setUserAchievements} = AchievementsSlice.actions;
 export default AchievementsSlice.reducer;

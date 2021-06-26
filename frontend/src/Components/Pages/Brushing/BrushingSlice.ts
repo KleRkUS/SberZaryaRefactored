@@ -1,20 +1,20 @@
-import {CaseReducer, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {SberZarya} from "../../../Core/SberZarya";
+import { CaseReducer, createSlice, PayloadAction, Draft } from '@reduxjs/toolkit';
+import { BrushingState } from "../../../Core/SberZarya";
 
-const initialState:SberZarya.BrushingState = {
+const initialState: BrushingState = {
     ongoingBrushing:false,
     time: 0
 }
 
-const brushingStarted:CaseReducer<SberZarya.BrushingState> = (state):void => {
+const brushingStarted: CaseReducer<BrushingState> = (state: Draft<BrushingState>): void => {
     state.ongoingBrushing = true;
 }
 
-const brushingEnded:CaseReducer<SberZarya.BrushingState> = (state):void => {
+const brushingEnded: CaseReducer<BrushingState> = (state: Draft<BrushingState>): void => {
     state.ongoingBrushing = false;
 }
 
-const setTime:CaseReducer<SberZarya.BrushingState, PayloadAction<number>> = (state, action:PayloadAction<number>):void => {
+const setTime: CaseReducer<BrushingState, PayloadAction<number>> = (state: Draft<BrushingState>, action:PayloadAction<number>): void => {
     state.time = action.payload;
 }
 
@@ -27,8 +27,6 @@ const BrushingSlice = createSlice({
         updateTime: setTime
     }
 });
-
-export const getBrushingState = (state:SberZarya.BrushingState):boolean => state.ongoingBrushing;
 
 export const {brushStart, brushEnd, updateTime} = BrushingSlice.actions;
 export default BrushingSlice.reducer;

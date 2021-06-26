@@ -7,44 +7,41 @@ import {
     TextBoxBigTitle,
     Row,
     Col,
-    Container, CardMedia
+    Container,
+    CardMedia
 } from "@sberdevices/ui";
+import {
+    CardAmount,
+    Image,
+    Fade
+} from "./generalBlockStyles";
 import styled from "styled-components";
-import {SberZarya} from "../../../../Core/SberZarya";
+import { RegularAchievements } from "../../../../../Core/SberZarya";
 
 interface GeneralBlock {
-    achievements:Array<number>,
-    allAchievements:Array<SberZarya.RegularAchievements>
+    achievements: number[],
+    allAchievements: RegularAchievements[]
 }
 
-const CardAmount = styled.h2`
-  font-size: 96px;
-  align-self: center;
-  color: #FFFFFF;
-  margin: 57px 0;
+const StyledCardMedia = styled(CardMedia)`
+  position: absolute;
 `;
 
-const Image = styled.img`
-  width: 24px;
-  height: 24px;
+const StyledCardContent = styled(CardContent)`
+  text-align: center
 `;
 
-const Fade = styled.div`
-  width: 100%;
-  height: 100%;
-  position:absolute;
-  top: 0;
-  left: 0;
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.74) 100%);,
+const StyledContainer = styled(Container)`
+  margin-top: 20px
 `;
 
-const GeneralBlock = ({achievements, allAchievements}:GeneralBlock):JSX.Element => {
+const GeneralBlock = ({achievements, allAchievements}: GeneralBlock): JSX.Element => {
     const amount = achievements.length;
 
     const generateIcons = ():Array<JSX.Element> => {
-        const icons:Array<JSX.Element> = [];
+        const icons: JSX.Element[] = [];
         for (let i:number = 0; i < 4; i++) {
-            let icon:JSX.Element;
+            let icon: JSX.Element;
 
             if (achievements[i] !== undefined) {
                 const current = allAchievements[achievements[i]];
@@ -70,32 +67,23 @@ const GeneralBlock = ({achievements, allAchievements}:GeneralBlock):JSX.Element 
         <Card>
             <CardBody>
 
-                <CardMedia
-                    src="/assets/pictures/achievements/main_background.jpg"
-                    style={{
-                        position: "absolute"
-                    }}
-                />
+                <StyledCardMedia src="/assets/pictures/achievements/main_background.jpg"/>
                 <Fade/>
 
-                <CardContent
-                    style={{
-                        textAlign: "center"
-                    }}
-                >
+                <StyledCardContent>
 
                     <CardAmount>{amount}</CardAmount>
                     <TextBox>
                         <TextBoxBigTitle>награда</TextBoxBigTitle>
                     </TextBox>
 
-                    <Container style={{marginTop: "20px"}}>
+                    <StyledContainer>
                         <Row>
                             {icons}
                         </Row>
-                    </Container>
+                    </StyledContainer>
 
-                </CardContent>
+                </StyledCardContent>
 
             </CardBody>
         </Card>

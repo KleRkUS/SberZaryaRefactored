@@ -1,37 +1,12 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-
-import {updateTime} from "../BrushingSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {SberZarya} from "../../../../Core/SberZarya";
+import { updateTime } from "../BrushingSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { BrushingSelectorState } from "../../../../Core/SberZarya";
 
 interface MainStageProps {
     onEnd: () => void
 }
-
-interface Option {
-    top:string,
-    bottom:string
-}
-
-const options:Array<Option> = [
-    {
-        top: "чистим правую верхнюю часть",
-        bottom: "от десны к низу"
-    },
-    {
-        top: "чистим правую нижнюю часть",
-        bottom: "от десны вверх"
-    },
-    {
-        top: "чистим левую нижнюю часть",
-        bottom: "от десны вверх"
-    },
-    {
-        top: "чистим левую верхнюю часть",
-        bottom: "от десны вниз"
-    }
-];
 
 const Container = styled.main`
   display: flex;
@@ -40,13 +15,6 @@ const Container = styled.main`
   justify-content: center;
   margin-top: 20px;
   color: #fff;
-`;
-
-const HandsPart = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 const TimePart = styled.div`
@@ -61,11 +29,10 @@ const Timer = styled.h2`
 `;
 
 const MainStage = ({onEnd}:MainStageProps):JSX.Element => {
-    const currentBrushingTime:number = useSelector(({brushing}:SberZarya.BrushingSelectorState) => brushing.time);
+    const currentBrushingTime:number = useSelector(({brushing}: BrushingSelectorState) => brushing.time);
     const [seconds, setSeconds] = useState<number>(currentBrushingTime);
     const dispatch = useDispatch();
-
-    let interval = setTimeout(timeUpdate, 1000);
+    const interval = setTimeout(timeUpdate, 1000);
 
     function timeUpdate() {
         setSeconds(seconds+1);
@@ -99,7 +66,9 @@ const MainStage = ({onEnd}:MainStageProps):JSX.Element => {
         <Container>
 
             <TimePart>
-                <Timer>{`0${Math.trunc(seconds / 60)}:${getZeroed()}`}</Timer>
+                <Timer>
+                    {`0${Math.trunc(seconds / 60)}:${getZeroed()}`}
+                </Timer>
             </TimePart>
 
         </Container>

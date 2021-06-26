@@ -3,14 +3,14 @@ import {Container, Header as HeaderBlock} from '@sberdevices/ui';
 import Routes from "../../Core/PagesRoutingConfig";
 import {useHistory, useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {SberZarya} from "../../Core/SberZarya";
+import { AchievementSelectorState, RegularAchievements } from "../../Core/SberZarya";
+import { locationsWithTitle } from "../../utils/consts";
 
-
-const Header = ():JSX.Element => {
+const Header = (): JSX.Element => {
     const location = useLocation();
     const history = useHistory();
     const uniqueRegex = /achievement=(\d)/;
-    const allAchievements:Array<SberZarya.RegularAchievements> = useSelector(({achievements}:SberZarya.AchievementSelectorState) => achievements.allAchievements);
+    const allAchievements: RegularAchievements[] = useSelector(({achievements}: AchievementSelectorState) => achievements.allAchievements);
 
     const [currLocation, setLocation] = useState<string>(location.pathname);
     const [locationTitle, setLocationTitle] = useState<string>(Routes[location.pathname]);
@@ -20,7 +20,7 @@ const Header = ():JSX.Element => {
         const matches = location.pathname.match(uniqueRegex)
 
         if (matches) {
-            const newTitle:string = allAchievements.filter((elem:SberZarya.RegularAchievements) => elem.id === Number(matches[1]))[0].title;
+            const newTitle: string = allAchievements.filter((elem: RegularAchievements) => elem.id === Number(matches[1]))[0].title;
             setLocationTitle(newTitle);
         } else {
             setLocationTitle(Routes[location.pathname]);
@@ -34,26 +34,24 @@ const Header = ():JSX.Element => {
 
     return(
         <Container>
-            {currLocation !== ("/main" || "/") &&
+            {locationsWithTitle.indexOf(currLocation) !== -1 &&
                 <HeaderBlock
                     back={true}
                     title={locationTitle}
                     onBackClick={():void => {
                         history.goBack();
                     }}
+                    style={{cursor: "pointer"}}
                 />
             }
 
-            {currLocation === ("/main" || "/") &&
+            {locationsWithTitle.indexOf(currLocation) === -1 &&
                 <HeaderBlock
                   back={false}
                   logo={'./assets/icons/Header-icon.svg'}
                   logoAlt="SberZarya"
                   title="SberZarya"
                   subtitle="Чистим зубы правильно"
-                  style={{
-                      marginLeft: "50px"
-                  }}
                 />
             }
 
